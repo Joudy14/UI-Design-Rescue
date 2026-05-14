@@ -1,0 +1,424 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+*{
+
+  margin:0;
+  padding:0;
+
+  box-sizing:border-box;
+
+  font-family:'Inter',sans-serif;
+}
+
+body{
+
+  background:
+  linear-gradient(
+  135deg,
+  #052e16,
+  #071a12
+  );
+
+  color:white;
+
+  min-height:100vh;
+
+  display:flex;
+  flex-direction:column;
+
+  align-items:center;
+
+  padding:30px;
+}
+
+/* HERO */
+
+#heroSection{
+
+  width:1200px;
+
+  background:white;
+
+  border-radius:30px;
+
+  overflow:hidden;
+
+  margin-bottom:30px;
+
+  padding:20px;
+}
+
+#heroImage{
+
+  width:100%;
+
+  display:block;
+
+  border-radius:20px;
+}
+
+/* BOX */
+
+.box{
+
+  width:1200px;
+
+  background:rgba(255,255,255,0.06);
+
+  border-radius:24px;
+
+  padding:24px;
+
+  margin-bottom:20px;
+}
+
+.smallBox{
+
+  width:250px;
+
+  text-align:center;
+
+  font-weight:700;
+}
+
+/* TOPBAR */
+
+#topbar{
+
+  width:1200px;
+
+  display:flex;
+
+  justify-content:space-between;
+}
+
+/* INTRO */
+
+#introBox h2{
+
+  color:#bbf7d0;
+
+  margin-bottom:16px;
+}
+
+.introText{
+
+  margin-bottom:20px;
+}
+
+.uiExplanation{
+
+  padding:20px;
+
+  border-radius:20px;
+
+  margin-top:16px;
+}
+
+.badText{
+
+  background:
+  rgba(239,68,68,0.2);
+}
+
+.goodText{
+
+  background:
+  rgba(34,197,94,0.2);
+}
+
+/* PROGRESS */
+
+#progressBar{
+
+  width:1200px;
+
+  height:18px;
+
+  background:
+  rgba(255,255,255,0.08);
+
+  border-radius:999px;
+
+  overflow:hidden;
+
+  margin-bottom:20px;
+}
+
+#progressFill{
+
+  width:33%;
+
+  height:100%;
+
+  background:
+  linear-gradient(
+  90deg,
+  #22c55e,
+  #4ade80
+  );
+}
+
+/* PHONE */
+
+#phone{
+
+  width:390px;
+  height:844px;
+
+  background:white;
+
+  border-radius:42px;
+
+  border:10px solid #052e16;
+
+  position:relative;
+
+  overflow:hidden;
+
+  display:none;
+
+  margin-top:20px;
+
+  margin-bottom:20px;
+}
+
+#notch{
+
+  width:150px;
+  height:30px;
+
+  background:#052e16;
+
+  position:absolute;
+
+  top:0;
+  left:50%;
+
+  transform:translateX(-50%);
+}
+
+/* ELEMENTS */
+
+.element{
+
+  position:absolute;
+
+  padding:14px;
+
+  border-radius:18px;
+
+  cursor:grab;
+}
+
+.label{
+
+  color:#052e16;
+
+  font-size:24px;
+
+  font-weight:700;
+}
+
+.input{
+
+  background:white;
+
+  border:2px solid #bbf7d0;
+
+  color:#166534;
+
+  min-width:150px;
+
+  text-align:center;
+}
+
+.ui-button{
+
+  background:
+  linear-gradient(
+  135deg,
+  #22c55e,
+  #16a34a
+  );
+
+  color:white;
+
+  font-weight:700;
+}
+
+/* BROKEN UI */
+
+#title{
+
+  top:90px;
+  left:250px;
+}
+
+#cardInput{
+
+  top:260px;
+  left:30px;
+}
+
+#nameInput{
+
+  top:160px;
+  left:210px;
+}
+
+#payBtn{
+
+  top:500px;
+  left:20px;
+}
+
+/* LEVEL 2 */
+
+#exerciseArea{
+
+  width:1200px;
+
+  display:none;
+
+  flex-wrap:wrap;
+
+  justify-content:center;
+
+  gap:20px;
+}
+
+.card{
+
+  width:220px;
+
+  padding:24px;
+
+  border-radius:20px;
+
+  background:white;
+
+  color:#052e16;
+
+  text-align:center;
+
+  font-weight:700;
+
+  cursor:pointer;
+}
+
+.selected{
+
+  outline:4px solid #22c55e;
+}
+
+/* LEVEL 3 */
+
+#associationArea{
+
+  width:1200px;
+
+  display:none;
+
+  justify-content:space-between;
+
+  margin-top:20px;
+}
+
+.column{
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:18px;
+}
+
+.associationCard{
+
+  width:260px;
+
+  padding:24px;
+
+  border-radius:20px;
+
+  background:white;
+
+  color:#052e16;
+
+  text-align:center;
+
+  font-weight:700;
+
+  cursor:pointer;
+}
+
+/* CORRECT */
+
+.correct{
+
+  background:#22c55e !important;
+
+  color:white !important;
+}
+
+.wrong{
+
+  background:#ef4444 !important;
+
+  color:white !important;
+}
+
+/* BUTTONS */
+
+#controls{
+
+  width:1200px;
+
+  display:flex;
+
+  gap:20px;
+
+  margin-top:20px;
+}
+
+button{
+
+  flex:1;
+
+  border:none;
+
+  padding:20px;
+
+  border-radius:20px;
+
+  font-size:18px;
+
+  font-weight:700;
+
+  cursor:pointer;
+
+  color:white;
+}
+
+#nextBtn{
+
+  background:
+  linear-gradient(
+  135deg,
+  #22c55e,
+  #16a34a
+  );
+}
+
+#submitBtn{
+
+  background:
+  linear-gradient(
+  135deg,
+  #15803d,
+  #166534
+  );
+
+  display:none;
+}
