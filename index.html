@@ -1,190 +1,266 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-  <meta charset="UTF-8">
-
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
-
-  <title>
-    Domain Modeling Learning Game
-  </title>
-
-  <link rel="stylesheet"
-        href="style.css">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UI/UX Design Rescue</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
 
-<!-- HERO IMAGE -->
-
-<div id="heroSection">
-
-  <img src="bg.jpg"
-       id="heroImage">
-
-</div>
-
-<!-- INTRO -->
-
-<div class="box"
-     id="introBox">
-
-  <h2>
-    📚 Understanding Good & Bad UI
-  </h2>
-
-  <p class="introText">
-
-    The image above compares bad and good UI.
-
-  </p>
-
-  <div class="uiExplanation badText">
-
-    ❌ Bad UI:
-    crowded layout, weak spacing,
-    difficult navigation.
-
+  <!-- ============================================================
+       INTRO / HERO SCREEN
+       Shown before the game starts. Explains the concept.
+  ============================================================ -->
+  <div id="introScreen">
+    <div id="introContent">
+      <div id="introLogo">🎮</div>
+      <h1 id="introTitle">UI/UX Design Rescue</h1>
+      <p id="introSub">
+        Fix real broken interfaces. Drag, resize, and reorganize
+        elements until the design just works.
+      </p>
+      <div class="introCards">
+        <div class="introCard"><span>📱</span><br/>Login Screen</div>
+        <div class="introCard"><span>💳</span><br/>Checkout Screen</div>
+        <div class="introCard"><span>💻</span><br/>Dashboard</div>
+      </div>
+      <button id="startGameBtn">Start Designing →</button>
+    </div>
   </div>
 
-  <div class="uiExplanation goodText">
+  <!-- ============================================================
+       MAIN GAME WRAPPER
+       Hidden until intro is dismissed.
+  ============================================================ -->
+  <div id="gameWrapper" class="hidden">
 
-    ✅ Good UI:
-    clean spacing, hierarchy,
-    better usability.
+    <!-- TOP BAR: score, level indicator, progress -->
+    <div id="topbar">
+      <div id="levelLabel">Level <span id="levelNum">1</span></div>
+      <div id="progressBarWrap">
+        <div id="progressFill"></div>
+      </div>
+      <div id="scoreBox">⭐ <span id="scoreNum">0</span></div>
+    </div>
 
+    <!-- LESSON / HINT PANEL: updates with live feedback -->
+    <div id="lessonPanel">
+      <span id="lessonText">🎯 Drag the elements into a clean, usable layout.</span>
+    </div>
+
+    <!-- ========================
+         LEVEL 1 — LOGIN SCREEN
+         Device: Phone
+    ======================== -->
+    <div id="level1" class="levelScreen active">
+      <div id="phoneFrame">
+        <div id="phoneSpeaker"></div>
+        <div id="phoneCanvas">
+
+          <!-- Logo / App name -->
+          <div class="draggable" id="loginLogo" data-target="logoZone">
+            <span class="logoIcon">🎵</span>
+            <span class="logoText">Spotify</span>
+          </div>
+
+          <!-- Email input field -->
+          <div class="draggable inputField" id="emailInput" data-target="emailZone">
+            <span class="fieldIcon">✉️</span>
+            <span class="fieldLabel">Email Address</span>
+            <div class="resize-handle" title="Drag to resize"></div>
+          </div>
+
+          <!-- Password input field -->
+          <div class="draggable inputField" id="passwordInput" data-target="passwordZone">
+            <span class="fieldIcon">🔒</span>
+            <span class="fieldLabel">Password</span>
+            <div class="resize-handle" title="Drag to resize"></div>
+          </div>
+
+          <!-- Login button — primary CTA -->
+          <div class="draggable cta-button" id="loginBtn" data-target="loginBtnZone">
+            LOG IN
+            <div class="resize-handle" title="Drag to resize"></div>
+          </div>
+
+          <!-- Secondary action -->
+          <div class="draggable secondary-link" id="forgotText" data-target="forgotZone">
+            Forgot Password?
+          </div>
+
+          <!-- Drop zones — invisible targets -->
+          <div class="dropZone" id="logoZone"        data-label="App Logo"       style="top:40px;  left:50%; transform:translateX(-50%); width:130px; height:48px;"></div>
+          <div class="dropZone" id="emailZone"       data-label="Email Field"    style="top:120px; left:50%; transform:translateX(-50%); width:220px; height:44px;"></div>
+          <div class="dropZone" id="passwordZone"    data-label="Password Field" style="top:178px; left:50%; transform:translateX(-50%); width:220px; height:44px;"></div>
+          <div class="dropZone" id="loginBtnZone"    data-label="Login Button"   style="top:246px; left:50%; transform:translateX(-50%); width:220px; height:48px;"></div>
+          <div class="dropZone" id="forgotZone"      data-label="Forgot Link"    style="top:308px; left:50%; transform:translateX(-50%); width:180px; height:30px;"></div>
+
+        </div>
+        <div id="phoneHomeBar"></div>
+      </div>
+
+      <!-- Goal reference panel -->
+      <div id="goalPanel1" class="goalPanel">
+        <div class="goalTitle">🎯 Goal Layout</div>
+        <div class="goalItem"><div class="goalBlock logo-block"></div><span>App Logo — top center</span></div>
+        <div class="goalItem"><div class="goalBlock field-block"></div><span>Email Field — below logo</span></div>
+        <div class="goalItem"><div class="goalBlock field-block"></div><span>Password — below email</span></div>
+        <div class="goalItem"><div class="goalBlock btn-block"></div><span>Login Button — primary, wide</span></div>
+        <div class="goalItem"><div class="goalBlock link-block"></div><span>Forgot Password — small, below</span></div>
+      </div>
+    </div>
+
+    <!-- ========================
+         LEVEL 2 — CHECKOUT SCREEN
+         Device: Tablet
+    ======================== -->
+    <div id="level2" class="levelScreen">
+      <div id="tabletFrame">
+        <div id="tabletCamera"></div>
+        <div id="tabletCanvas">
+
+          <div class="tabletHeader">Stripe Checkout</div>
+
+          <div class="draggable payCard" id="cardDetails" data-target="cardZone">
+            <span class="payIcon">💳</span>
+            <div>
+              <div class="payTitle">Card Details</div>
+              <div class="payMeta">Enter your card number, expiry, CVV</div>
+            </div>
+            <div class="resize-handle"></div>
+          </div>
+
+          <div class="draggable payCard" id="summaryBox" data-target="summaryZone">
+            <span class="payIcon">🛒</span>
+            <div>
+              <div class="payTitle">Order Summary</div>
+              <div class="payMeta">2 items · $249.00</div>
+            </div>
+            <div class="resize-handle"></div>
+          </div>
+
+          <div class="draggable promoCard" id="promoBox" data-target="promoZone">
+            <span class="payIcon">🎁</span>
+            <span>Promo Code</span>
+          </div>
+
+          <div class="draggable pay-button" id="checkoutBtn" data-target="checkoutZone">
+            PAY $249.00
+            <div class="resize-handle"></div>
+          </div>
+
+          <!-- Drop zones -->
+          <div class="dropZone" id="summaryZone"  data-label="Order Summary"  style="top:60px;  left:20px;  width:220px; height:90px;"></div>
+          <div class="dropZone" id="cardZone"     data-label="Card Details"   style="top:60px;  right:20px; width:220px; height:90px;"></div>
+          <div class="dropZone" id="promoZone"    data-label="Promo Code"     style="top:170px; left:20px;  width:200px; height:40px;"></div>
+          <div class="dropZone" id="checkoutZone" data-label="Pay Button"     style="top:230px; left:50%; transform:translateX(-50%); width:260px; height:52px;"></div>
+
+        </div>
+      </div>
+
+      <div id="goalPanel2" class="goalPanel">
+        <div class="goalTitle">🎯 Goal Layout</div>
+        <div class="goalItem"><div class="goalBlock summary-block"></div><span>Order Summary — top left</span></div>
+        <div class="goalItem"><div class="goalBlock card-block"></div><span>Card Details — top right</span></div>
+        <div class="goalItem"><div class="goalBlock promo-block"></div><span>Promo Code — below summary</span></div>
+        <div class="goalItem"><div class="goalBlock paybtn-block"></div><span>Pay Button — bottom center, wide</span></div>
+      </div>
+    </div>
+
+    <!-- ========================
+         LEVEL 3 — DASHBOARD
+         Device: Laptop
+    ======================== -->
+    <div id="level3" class="levelScreen">
+      <div id="laptopFrame">
+        <div id="laptopScreen">
+          <div id="laptopCanvas">
+
+            <div class="draggable sidebar" id="sideBar" data-target="sideZone">
+              <div class="sideItem active">📊 Dashboard</div>
+              <div class="sideItem">👤 Profile</div>
+              <div class="sideItem">⚙️ Settings</div>
+              <div class="sideItem">🔔 Alerts</div>
+              <div class="resize-handle"></div>
+            </div>
+
+            <div class="draggable profileCard" id="profileCard" data-target="profileZone">
+              <div class="profileAvatar">SJ</div>
+              <div>
+                <div class="profileName">Sarah Johnson</div>
+                <div class="profileRole">Product Designer</div>
+              </div>
+            </div>
+
+            <div class="draggable statCard" id="statsCard" data-target="statsZone">
+              <div class="statLabel">📈 Sessions</div>
+              <div class="statValue">12,480</div>
+              <div class="statDelta positive">↑ 14%</div>
+              <div class="resize-handle"></div>
+            </div>
+
+            <div class="draggable statCard" id="salesCard" data-target="salesZone">
+              <div class="statLabel">💰 Revenue</div>
+              <div class="statValue">$84,200</div>
+              <div class="statDelta positive">↑ 8%</div>
+              <div class="resize-handle"></div>
+            </div>
+
+            <div class="draggable saveBtn-el" id="saveBtn" data-target="saveZone">
+              SAVE CHANGES
+            </div>
+
+            <!-- Drop zones -->
+            <div class="dropZone" id="sideZone"    data-label="Sidebar"         style="top:0;    left:0;    width:140px; height:100%;"></div>
+            <div class="dropZone" id="profileZone" data-label="Profile Card"    style="top:16px; left:160px; width:220px; height:64px;"></div>
+            <div class="dropZone" id="statsZone"   data-label="Analytics Card"  style="top:100px; left:160px; width:160px; height:90px;"></div>
+            <div class="dropZone" id="salesZone"   data-label="Revenue Card"    style="top:100px; left:340px; width:160px; height:90px;"></div>
+            <div class="dropZone" id="saveZone"    data-label="Save Button"     style="bottom:20px; right:20px; width:140px; height:40px;"></div>
+
+          </div>
+        </div>
+        <div id="laptopBase"><div id="laptopNotch"></div></div>
+      </div>
+
+      <div id="goalPanel3" class="goalPanel">
+        <div class="goalTitle">🎯 Goal Layout</div>
+        <div class="goalItem"><div class="goalBlock side-block"></div><span>Sidebar — full left column</span></div>
+        <div class="goalItem"><div class="goalBlock profile-block"></div><span>Profile — top of content area</span></div>
+        <div class="goalItem"><div class="goalBlock stat-block"></div><span>Analytics + Revenue — side by side</span></div>
+        <div class="goalItem"><div class="goalBlock save-block"></div><span>Save Button — bottom right</span></div>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         FEEDBACK BAR + CONTROLS
+    ============================================================ -->
+    <div id="feedbackBar">
+      <span id="feedbackText">Ready — start moving elements into place.</span>
+    </div>
+
+    <div id="controls">
+      <button id="hintBtn">💡 Hint</button>
+      <button id="submitBtn">Submit Design ✓</button>
+      <button id="nextBtn" class="hidden">Next Level →</button>
+    </div>
+
+  </div><!-- end #gameWrapper -->
+
+  <!-- ============================================================
+       FINAL SCORE SCREEN
+  ============================================================ -->
+  <div id="finalScreen" class="hidden">
+    <div id="finalCard">
+      <div id="finalEmoji">🏆</div>
+      <h2 id="finalTitle">Design Complete!</h2>
+      <p id="finalSub">Here's how you did across all levels</p>
+      <div id="finalScores"></div>
+      <div id="finalGrade"></div>
+      <button id="replayBtn">Play Again</button>
+    </div>
   </div>
 
-</div>
-
-<!-- TOPBAR -->
-
-<div id="topbar">
-
-  <div class="box smallBox"
-       id="scoreBox">
-
-    ⭐ Score: 0
-
-  </div>
-
-  <div class="box smallBox"
-       id="levelBox">
-
-    Level 1
-
-  </div>
-
-</div>
-
-<!-- PROGRESS -->
-
-<div id="progressBar">
-
-  <div id="progressFill"></div>
-
-</div>
-
-<!-- LESSON PANEL -->
-
-<div class="box"
-     id="lessonPanel">
-
-  🎮 Click Start Level 1 to begin.
-
-</div>
-
-<!-- PHONE -->
-
-<div id="phone">
-
-  <div id="notch"></div>
-
-  <h2 class="element label"
-      id="title">
-
-    Payment
-
-  </h2>
-
-  <div class="element input"
-       id="cardInput">
-
-    Card Number
-
-  </div>
-
-  <div class="element input"
-       id="nameInput">
-
-    Card Holder
-
-  </div>
-
-  <div class="element ui-button"
-       id="payBtn">
-
-    PAY NOW
-
-  </div>
-
-</div>
-
-<!-- LEVEL 2 -->
-
-<div id="exerciseArea">
-
-</div>
-
-<!-- LEVEL 3 -->
-
-<div id="associationArea">
-
-  <div class="column"
-       id="leftColumn">
-
-  </div>
-
-  <div class="column"
-       id="rightColumn">
-
-  </div>
-
-</div>
-
-<!-- MESSAGE -->
-
-<div class="box"
-     id="message">
-
-  Ready to start.
-
-</div>
-
-<!-- BUTTONS -->
-
-<div id="controls">
-
-  <button id="nextBtn">
-
-    Start Level 1
-
-  </button>
-
-  <button id="submitBtn">
-
-    Submit
-
-  </button>
-
-</div>
-
-<script src="script.js"></script>
-
+  <script src="script.js"></script>
 </body>
-
 </html>
