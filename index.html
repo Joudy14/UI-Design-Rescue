@@ -4,86 +4,123 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>UI/UX Design Rescue</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<!-- ================================================================
-     SCREEN A — INTRO
-================================================================ -->
+<!-- SCREEN A — INTRO -->
 <div id="introScreen" class="screen show">
+  <div class="intro-grid-bg"></div>
+  <div class="intro-blobs">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <div class="blob b3"></div>
+  </div>
   <div class="intro-box">
-    <div class="intro-icon">🎮</div>
-    <h1>UI/UX Design<br/><span class="purple">Rescue</span></h1>
-    <p class="intro-sub">Fix real broken interfaces. Drag elements into the right place and learn design principles — without a single multiple-choice question.</p>
+    <div class="intro-badge">✦ Interactive Design Challenge</div>
+    <h1>UI/UX<br/><span class="gradient-text">Design Rescue</span></h1>
+    <p class="intro-sub">Broken interfaces everywhere. Only you can fix them.<br/>Drag misplaced elements into the right zones — fast.</p>
+    <div class="intro-stats">
+      <div class="istat"><span class="istat-n">3</span><span class="istat-l">Levels</span></div>
+      <div class="istat-div"></div>
+      <div class="istat"><span class="istat-n">⏱</span><span class="istat-l">Timed</span></div>
+      <div class="istat-div"></div>
+      <div class="istat"><span class="istat-n">🔥</span><span class="istat-l">Combos</span></div>
+      <div class="istat-div"></div>
+      <div class="istat"><span class="istat-n">🎯</span><span class="istat-l">Decoy Zones</span></div>
+    </div>
     <div class="intro-chips">
       <span class="chip">📱 Login Screen</span>
-      <span class="chip">💳 Checkout Screen</span>
+      <span class="chip">💳 Checkout</span>
       <span class="chip">💻 Dashboard</span>
     </div>
-    <button class="btn-green" id="btnIntroStart">Start Fixing →</button>
+    <button class="btn-primary" id="btnIntroStart">Start Fixing <span class="btn-arrow">→</span></button>
+    <p class="intro-note">Hint costs 15 pts · Wrong drop −5 pts · Combos multiply your score</p>
   </div>
 </div>
 
-<!-- ================================================================
-     SCREEN B — TEACH (shown before each level, uses bg.jpg)
-================================================================ -->
+<!-- SCREEN B — TEACH -->
 <div id="teachScreen" class="screen">
   <div class="teach-box">
-
     <div class="teach-top">
-      <span class="teach-tag" id="teachTag">Level 1 of 3</span>
-      <h2 id="teachTitle">Login Screen</h2>
-      <p class="teach-sub" id="teachSub"></p>
+      <div class="teach-top-left">
+        <span class="teach-tag" id="teachTag">Level 1 of 3</span>
+        <h2 id="teachTitle">Login Screen UX</h2>
+        <p class="teach-sub" id="teachSub"></p>
+      </div>
+      <div class="teach-timer-preview">
+        <div class="ttp-icon">⏱</div>
+        <div class="ttp-val" id="teachTimerVal">60s</div>
+        <div class="ttp-label">time limit</div>
+      </div>
     </div>
-
     <div class="teach-body">
-
-      <!-- Your bg.jpg is shown here as a design reference -->
       <div class="teach-left">
-        <div class="teach-img-label">📸 Design Reference</div>
+        <div class="teach-img-label">📸 Target Design</div>
         <div class="teach-img-frame">
-          <img src="bg.jpg" id="teachImg" alt="UI/UX design reference" />
+          <img src="bg.jpg" id="teachImg" alt="UI reference" />
         </div>
         <p class="teach-caption" id="teachCaption"></p>
       </div>
-
-      <!-- Good vs Bad rules -->
       <div class="teach-right">
-        <div class="rules-title green-text">✅ What makes this UI good</div>
-        <ul class="rules-list green-rules" id="teachGood"></ul>
-
-        <div class="rules-title red-text" style="margin-top:20px">❌ Common mistakes to avoid</div>
-        <ul class="rules-list red-rules" id="teachBad"></ul>
+        <div class="rules-block green-block">
+          <div class="rules-title">✅ Good UX patterns</div>
+          <ul class="rules-list" id="teachGood"></ul>
+        </div>
+        <div class="rules-block red-block">
+          <div class="rules-title">❌ What makes it broken</div>
+          <ul class="rules-list" id="teachBad"></ul>
+        </div>
+        <div class="warn-block">
+          ⚠️ Watch out for <strong>decoy zones</strong> — not every dashed outline is a valid spot!
+        </div>
       </div>
-
     </div>
-
     <div class="teach-footer">
-      <span class="teach-footer-text">Now you fix it 👇</span>
-      <button class="btn-green" id="btnTeachGo">Start Level</button>
+      <span class="teach-footer-tip">Study the reference image carefully before you start.</span>
+      <button class="btn-primary" id="btnTeachGo">I'm Ready →</button>
     </div>
-
   </div>
 </div>
 
-<!-- ================================================================
-     SCREEN C — GAME
-================================================================ -->
+<!-- SCREEN C — GAME -->
 <div id="gameScreen" class="screen">
 
   <!-- TOP BAR -->
   <div id="topbar">
-    <div class="tb-left">Level <span class="tb-num" id="tbLevel">1</span><span class="tb-of"> / 3</span></div>
-    <div class="tb-mid">
-      <div class="tb-track"><div id="tbFill"></div></div>
+    <div class="tb-brand">🎮 <span>UX Rescue</span></div>
+    <div class="tb-center">
+      <div class="tb-pills">
+        <span class="tb-pill" id="pill1">1</span>
+        <span class="tb-pill-line"></span>
+        <span class="tb-pill" id="pill2">2</span>
+        <span class="tb-pill-line"></span>
+        <span class="tb-pill" id="pill3">3</span>
+      </div>
     </div>
-    <div class="tb-right">⭐ <span id="tbScore">0</span> pts</div>
+    <div class="tb-right-group">
+      <div class="tb-timer-wrap">
+        <svg class="timer-ring" viewBox="0 0 36 36">
+          <circle class="ring-bg" cx="18" cy="18" r="15.9"/>
+          <circle class="ring-fill" id="timerRing" cx="18" cy="18" r="15.9"/>
+        </svg>
+        <span class="tb-timer" id="tbTimer">60</span>
+      </div>
+      <div class="tb-score-wrap">
+        <span class="tb-score-label">Score</span>
+        <span class="tb-score-val" id="tbScore">0</span>
+      </div>
+      <div class="tb-combo-wrap hide" id="comboWrap">
+        <span class="combo-badge" id="comboBadge">🔥 ×1</span>
+      </div>
+    </div>
   </div>
 
   <!-- FEEDBACK STRIP -->
   <div id="strip" class="strip-neutral">
-    <span id="stripText">🎯 Drag each element into its dashed zone.</span>
+    <span id="stripText">🎯 Drag elements from the tray into the correct spots on the screen.</span>
   </div>
 
   <!-- GAME AREA -->
@@ -92,155 +129,123 @@
     <!-- DEVICE CANVAS -->
     <div id="canvasCol">
 
-      <!-- ── LEVEL 1: Phone ── -->
+      <!-- LEVEL 1: Spotify-style Phone -->
       <div id="lv1wrap" class="devWrap">
         <div class="phone">
-          <div class="phone-pill"></div>
+          <div class="phone-notch"></div>
           <div class="phone-screen" id="lv1screen">
-
-            <!-- ZONES: invisible targets with dashed borders -->
-            <div class="zone" id="z1logo"     style="left:30px; top:32px;  width:200px; height:44px"  data-label="Logo here"></div>
-            <div class="zone" id="z1email"    style="left:30px; top:96px;  width:200px; height:44px"  data-label="Email field here"></div>
-            <div class="zone" id="z1password" style="left:30px; top:154px; width:200px; height:44px"  data-label="Password field here"></div>
-            <div class="zone" id="z1btn"      style="left:30px; top:218px; width:200px; height:48px"  data-label="Login button here"></div>
-            <div class="zone" id="z1forgot"   style="left:55px; top:284px; width:150px; height:30px"  data-label="Forgot link here"></div>
-
-            <!-- PIECES: start scattered (wrong positions intentional) -->
-            <div class="piece logo-piece"  id="p1logo"     data-zone="z1logo"     style="left:80px;  top:270px">
-              <span class="p-icon">🎵</span><span class="logo-label">Spotify</span>
-            </div>
-            <div class="piece field-piece" id="p1email"    data-zone="z1email"    style="left:160px; top:50px">
-              <span class="p-icon">✉️</span><span class="p-label">Email Address</span>
-              <span class="rh"></span>
-            </div>
-            <div class="piece field-piece" id="p1password" data-zone="z1password" style="left:20px;  top:300px">
-              <span class="p-icon">🔒</span><span class="p-label">Password</span>
-              <span class="rh"></span>
-            </div>
-            <div class="piece cta-piece"   id="p1btn"      data-zone="z1btn"      style="left:110px; top:140px">
-              LOG IN <span class="rh"></span>
-            </div>
-            <div class="piece link-piece"  id="p1forgot"   data-zone="z1forgot"   style="left:20px;  top:360px">
-              Forgot Password?
-            </div>
-
+            <div class="app-bg-spotify"></div>
+            <div class="zone" id="z1logo"     style="left:50%;transform:translateX(-50%);top:26px;width:160px;height:50px"  data-correct="p1logo"></div>
+            <div class="zone" id="z1email"    style="left:18px;top:96px;width:224px;height:46px"                            data-correct="p1email"></div>
+            <div class="zone" id="z1password" style="left:18px;top:152px;width:224px;height:46px"                           data-correct="p1password"></div>
+            <div class="zone" id="z1btn"      style="left:18px;top:212px;width:224px;height:50px"                           data-correct="p1btn"></div>
+            <div class="zone" id="z1forgot"   style="left:50%;transform:translateX(-50%);top:278px;width:160px;height:28px" data-correct="p1forgot"></div>
+            <div class="zone decoy" id="z1decoy" style="left:18px;top:322px;width:224px;height:36px"                        data-correct="none"></div>
           </div>
-          <div class="phone-bar"></div>
+          <div class="phone-homebar"></div>
         </div>
       </div>
 
-      <!-- ── LEVEL 2: Tablet ── -->
+      <!-- LEVEL 2: Stripe Checkout -->
       <div id="lv2wrap" class="devWrap hide">
-        <div class="tablet">
-          <div class="tablet-dot"></div>
-          <div class="tablet-screen" id="lv2screen">
-            <div class="t-header">Stripe Checkout</div>
-
-            <div class="zone" id="z2summary" style="left:20px;  top:62px;  width:210px; height:80px"  data-label="Order Summary here"></div>
-            <div class="zone" id="z2card"    style="left:260px; top:62px;  width:210px; height:80px"  data-label="Card Details here"></div>
-            <div class="zone" id="z2promo"   style="left:20px;  top:158px; width:170px; height:40px"  data-label="Promo Code here"></div>
-            <div class="zone" id="z2pay"     style="left:115px; top:218px; width:260px; height:52px"  data-label="Pay button here"></div>
-
-            <div class="piece pay-piece"     id="p2summary" data-zone="z2summary" style="left:250px; top:165px">
-              <span class="p-icon">🛒</span>
-              <span class="pay-info"><b>Order Summary</b><br/><small>2 items · $249.00</small></span>
-              <span class="rh"></span>
+        <div class="browser-window">
+          <div class="browser-bar">
+            <div class="browser-dots"><span></span><span></span><span></span></div>
+            <div class="browser-url">🔒 checkout.stripe.com</div>
+          </div>
+          <div class="browser-content" id="lv2screen">
+            <div class="checkout-header">
+              <span class="checkout-logo">⚡ Stripe</span>
+              <span class="checkout-secure">🔒 Secure checkout</span>
             </div>
-            <div class="piece pay-piece"     id="p2card"    data-zone="z2card"    style="left:20px;  top:65px">
-              <span class="p-icon">💳</span>
-              <span class="pay-info"><b>Card Details</b><br/><small>Number · Expiry · CVV</small></span>
-              <span class="rh"></span>
-            </div>
-            <div class="piece promo-piece"   id="p2promo"   data-zone="z2promo"   style="left:260px; top:220px">
-              🎁 Promo Code
-            </div>
-            <div class="piece paybtn-piece"  id="p2pay"     data-zone="z2pay"     style="left:40px;  top:70px">
-              PAY $249.00 <span class="rh"></span>
-            </div>
-
+            <div class="zone" id="z2summary" style="left:14px;top:62px;width:212px;height:110px"   data-correct="p2summary"></div>
+            <div class="zone" id="z2card"    style="left:240px;top:62px;width:236px;height:110px"  data-correct="p2card"></div>
+            <div class="zone" id="z2promo"   style="left:14px;top:184px;width:182px;height:42px"   data-correct="p2promo"></div>
+            <div class="zone" id="z2pay"     style="left:96px;top:240px;width:288px;height:54px"   data-correct="p2pay"></div>
+            <div class="zone decoy" id="z2decoy" style="left:240px;top:184px;width:236px;height:42px" data-correct="none"></div>
           </div>
         </div>
       </div>
 
-      <!-- ── LEVEL 3: Laptop ── -->
+      <!-- LEVEL 3: Dashboard -->
       <div id="lv3wrap" class="devWrap hide">
-        <div class="laptop">
-          <div class="laptop-lid">
-            <div class="laptop-screen" id="lv3screen">
-
-              <div class="zone" id="z3sidebar"  style="left:0;    top:0;    width:130px; height:340px" data-label="Sidebar here"></div>
-              <div class="zone" id="z3profile"  style="left:150px;top:16px; width:200px; height:64px"  data-label="Profile here"></div>
-              <div class="zone" id="z3stats"    style="left:150px;top:100px;width:148px; height:88px"  data-label="Analytics here"></div>
-              <div class="zone" id="z3revenue"  style="left:318px;top:100px;width:148px; height:88px"  data-label="Revenue here"></div>
-              <div class="zone" id="z3save"     style="left:440px;top:288px;width:140px; height:38px"  data-label="Save button here"></div>
-
-              <div class="piece sidebar-piece"  id="p3sidebar"  data-zone="z3sidebar"  style="left:320px;top:30px">
-                <div class="nav hi">📊 Dashboard</div>
-                <div class="nav">👤 Profile</div>
-                <div class="nav">⚙️ Settings</div>
-                <div class="nav">🔔 Alerts</div>
-                <span class="rh"></span>
-              </div>
-              <div class="piece profile-piece"  id="p3profile"  data-zone="z3profile"  style="left:20px; top:240px">
-                <div class="av">SJ</div>
-                <div><div class="pname">Sarah Johnson</div><div class="prole">Product Designer</div></div>
-              </div>
-              <div class="piece stat-piece"     id="p3stats"    data-zone="z3stats"    style="left:380px;top:195px">
-                <div class="slbl">📈 Sessions</div>
-                <div class="sval">12,480</div>
-                <div class="sdelta">↑ 14%</div>
-                <span class="rh"></span>
-              </div>
-              <div class="piece stat-piece"     id="p3revenue"  data-zone="z3revenue"  style="left:20px; top:60px">
-                <div class="slbl">💰 Revenue</div>
-                <div class="sval">$84,200</div>
-                <div class="sdelta">↑ 8%</div>
-                <span class="rh"></span>
-              </div>
-              <div class="piece save-piece"     id="p3save"     data-zone="z3save"     style="left:180px;top:285px">
-                SAVE CHANGES
-              </div>
-
-            </div>
+        <div class="browser-window wide">
+          <div class="browser-bar">
+            <div class="browser-dots"><span></span><span></span><span></span></div>
+            <div class="browser-url">🔒 app.dashboard.io</div>
           </div>
-          <div class="laptop-base"><div class="laptop-notch"></div></div>
+          <div class="browser-content dash" id="lv3screen">
+            <div class="zone" id="z3sidebar" style="left:0;top:0;width:128px;height:340px"           data-correct="p3sidebar"></div>
+            <div class="zone" id="z3profile" style="left:144px;top:10px;width:324px;height:66px"     data-correct="p3profile"></div>
+            <div class="zone" id="z3stats"   style="left:144px;top:88px;width:152px;height:92px"     data-correct="p3stats"></div>
+            <div class="zone" id="z3revenue" style="left:308px;top:88px;width:152px;height:92px"     data-correct="p3revenue"></div>
+            <div class="zone" id="z3save"    style="left:356px;top:294px;width:144px;height:38px"    data-correct="p3save"></div>
+            <div class="zone decoy" id="z3decoy1" style="left:144px;top:196px;width:316px;height:80px" data-correct="none"></div>
+            <div class="zone decoy" id="z3decoy2" style="left:144px;top:294px;width:196px;height:38px" data-correct="none"></div>
+          </div>
         </div>
       </div>
 
     </div><!-- end #canvasCol -->
 
-    <!-- CHECKLIST PANEL (right side) -->
-    <div id="checklist">
-      <div class="cl-title">📋 Place these</div>
-      <div id="clItems"></div>
-      <div id="clHint" class="cl-hint hide"></div>
+    <!-- PIECE TRAY -->
+    <div id="tray">
+      <div class="tray-header">
+        <div class="tray-title">🧩 Elements</div>
+        <div class="tray-sub">Drag onto screen</div>
+      </div>
+      <div id="trayItems"></div>
+      <div class="tray-progress">
+        <div class="tp-label">Placed <span id="tpPlaced">0</span> / <span id="tpTotal">0</span></div>
+        <div class="tp-bar"><div id="tpFill"></div></div>
+      </div>
+      <div class="tray-hint-box" id="trayHintBox">
+        <span class="tray-hint-icon">💡</span>
+        <span id="trayHintText">Think about how users read — top to bottom.</span>
+      </div>
     </div>
 
   </div><!-- end #gameArea -->
 
   <!-- CONTROLS -->
   <div id="controls">
-    <button class="btn-sec" id="btnHint">💡 Hint</button>
+    <button class="btn-sec" id="btnHint">💡 Hint <span class="cost-badge">−15pts</span></button>
     <button class="btn-sec" id="btnReset">↺ Reset</button>
-    <button class="btn-green" id="btnSubmit">Submit ✓</button>
-    <button class="btn-green hide" id="btnNext">Next Level →</button>
+    <button class="btn-primary" id="btnSubmit">Submit ✓</button>
+    <button class="btn-success hide" id="btnNext">Next Level →</button>
   </div>
 
 </div><!-- end #gameScreen -->
 
-<!-- ================================================================
-     SCREEN D — FINAL SCORE
-================================================================ -->
+<!-- SCREEN D — FINAL -->
 <div id="finalScreen" class="screen">
+  <div class="final-blobs">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+  </div>
+  <div id="confettiContainer"></div>
   <div class="final-card">
-    <div id="fEmoji" class="f-emoji">🏆</div>
-    <h2 id="fTitle">Design Complete!</h2>
-    <p class="f-sub">Here's how you did across all 3 levels</p>
-    <div id="fRows"></div>
-    <div id="fGrade" class="f-grade"></div>
-    <button class="btn-green" id="btnReplay">Play Again</button>
+    <div class="f-trophy">🏆</div>
+    <h2>Design Rescued!</h2>
+    <p class="f-sub">You fixed all 3 broken interfaces</p>
+    <div class="f-grade-row">
+      <div class="f-grade-block">
+        <div id="fGrade" class="f-grade">A+</div>
+        <div class="f-grade-label">Grade</div>
+      </div>
+      <div class="f-divider"></div>
+      <div class="f-score-block">
+        <div class="f-total-n" id="fScoreNum">0</div>
+        <div class="f-grade-label">Points</div>
+      </div>
+    </div>
+    <div class="f-breakdown" id="fBreakdown"></div>
+    <button class="btn-primary" id="btnReplay">Play Again ↺</button>
   </div>
 </div>
+
+<!-- Floating combo pop -->
+<div id="comboPop" class="combo-pop hide"></div>
 
 <script src="script.js"></script>
 </body>
