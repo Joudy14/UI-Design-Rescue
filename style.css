@@ -229,7 +229,7 @@ body {
 .teach-left { flex: 1; padding: 24px; border-right: 1px solid var(--border); }
 .teach-img-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); font-weight: 700; margin-bottom: 12px; }
 .teach-img-frame { border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--border); margin-bottom: 12px; background: var(--surface2); }
-.teach-img-frame img { width: 100%; display: block; max-height: 200px; object-fit: cover; }
+.teach-img-frame img { width: 100%; display: block; height: auto; }
 .teach-caption { font-size: 13px; color: var(--text2); line-height: 1.55; }
 
 .teach-right { flex: 1; padding: 24px; display: flex; flex-direction: column; gap: 14px; }
