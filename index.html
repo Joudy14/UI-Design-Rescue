@@ -13,18 +13,20 @@
 
 <!-- SCREEN A — INTRO -->
 <div id="introScreen" class="screen show">
-  <div class="intro-grid-bg"></div>
-  <div class="intro-blobs">
-    <div class="blob b1"></div>
-    <div class="blob b2"></div>
-    <div class="blob b3"></div>
+  <div class="gr-orbs">
+    <div class="gr-orb gr-orb-1"></div>
+    <div class="gr-orb gr-orb-2"></div>
+    <div class="gr-orb gr-orb-3"></div>
+    <div class="gr-orb gr-orb-4"></div>
+    <div class="gr-orb gr-orb-5"></div>
   </div>
+  <div class="gr-noise"></div>
   <div class="intro-box">
     <div class="intro-badge">✦ Interactive Design Challenge</div>
     <h1>UI/UX<br/><span class="gradient-text">Design Rescue</span></h1>
     <p class="intro-sub">Broken interfaces everywhere. Only you can fix them.<br/>Drag misplaced elements into the right zones — fast.</p>
     <div class="intro-stats">
-      <div class="istat"><span class="istat-n">3</span><span class="istat-l">Levels</span></div>
+      <div class="istat"><span class="istat-n">5</span><span class="istat-l">Levels</span></div>
       <div class="istat-div"></div>
       <div class="istat"><span class="istat-n">⏱</span><span class="istat-l">Timed</span></div>
       <div class="istat-div"></div>
@@ -36,9 +38,93 @@
       <span class="chip">📱 Login Screen</span>
       <span class="chip">💳 Checkout</span>
       <span class="chip">💻 Dashboard</span>
+      <span class="chip">📧 Email Composer</span>
+      <span class="chip">👤 Profile Settings</span>
     </div>
     <button class="btn-primary" id="btnIntroStart">Start Fixing <span class="btn-arrow">→</span></button>
     <p class="intro-note">Hint costs 15 pts · Wrong drop −5 pts · Combos multiply your score</p>
+    <button class="btn-dev-toggle" id="btnOpenDev">⚙ Dev Mode</button>
+  </div>
+</div>
+
+<!-- DEV MODE PANEL -->
+<div id="devPanel" class="dev-panel hide">
+  <div class="dev-header">
+    <span class="dev-title">⚙ Dev Mode <span class="dev-badge">TESTING</span></span>
+    <button class="dev-close" id="btnCloseDev">✕</button>
+  </div>
+
+  <div class="dev-section">
+    <div class="dev-section-label">⏱ Timer</div>
+    <div class="dev-row">
+      <button class="dev-btn" id="devPauseTimer">⏸ Pause Timer</button>
+      <button class="dev-btn" id="devResumeTimer">▶ Resume Timer</button>
+      <button class="dev-btn" id="devAdd30">+30s</button>
+      <button class="dev-btn" id="devSetTimer10">Set 10s</button>
+      <button class="dev-btn dev-btn-danger" id="devKillTimer">⏰ Time Up!</button>
+    </div>
+  </div>
+
+  <div class="dev-section">
+    <div class="dev-section-label">🎮 Levels</div>
+    <div class="dev-row">
+      <button class="dev-btn" id="devSkipLevel">⏭ Skip Level</button>
+      <button class="dev-btn" id="devPrevLevel">⏮ Prev Level</button>
+      <button class="dev-btn dev-btn-success" id="devWinLevel">✅ Win Level</button>
+      <button class="dev-btn dev-btn-danger" id="devGoFinal">🏆 Go to Final</button>
+    </div>
+    <div class="dev-row">
+      <span class="dev-label">Jump to level:</span>
+      <button class="dev-btn dev-lvl" data-lv="1">1</button>
+      <button class="dev-btn dev-lvl" data-lv="2">2</button>
+      <button class="dev-btn dev-lvl" data-lv="3">3</button>
+      <button class="dev-btn dev-lvl" data-lv="4">4</button>
+      <button class="dev-btn dev-lvl" data-lv="5">5</button>
+    </div>
+  </div>
+
+  <div class="dev-section">
+    <div class="dev-section-label">💰 Score</div>
+    <div class="dev-row">
+      <button class="dev-btn dev-btn-success" id="devAdd500">+500 pts</button>
+      <button class="dev-btn dev-btn-success" id="devAdd100">+100 pts</button>
+      <button class="dev-btn dev-btn-danger" id="devZeroScore">Zero Score</button>
+      <button class="dev-btn dev-btn-danger" id="devMaxScore">Max Score</button>
+    </div>
+  </div>
+
+  <div class="dev-section">
+    <div class="dev-section-label">🧩 Pieces</div>
+    <div class="dev-row">
+      <button class="dev-btn dev-btn-success" id="devAutoPlace">⚡ Auto-Place All</button>
+      <button class="dev-btn dev-btn-danger" id="devResetPieces">↺ Reset Pieces</button>
+      <button class="dev-btn" id="devRevealZones">👁 Reveal Zones</button>
+      <button class="dev-btn" id="devHideZones">🙈 Hide Zones</button>
+    </div>
+  </div>
+
+  <div class="dev-section">
+    <div class="dev-section-label">🔥 Combo</div>
+    <div class="dev-row">
+      <button class="dev-btn dev-btn-success" id="devSetCombo5">Set ×5 Combo</button>
+      <button class="dev-btn dev-btn-success" id="devSetCombo10">Set ×10 Combo</button>
+      <button class="dev-btn dev-btn-danger" id="devBreakCombo">Break Combo</button>
+    </div>
+  </div>
+
+  <div class="dev-section">
+    <div class="dev-section-label">🎨 Display</div>
+    <div class="dev-row">
+      <button class="dev-btn" id="devToggleHints">Toggle Hints</button>
+      <button class="dev-btn" id="devFlashStrip">⚡ Flash Strip</button>
+      <button class="dev-btn" id="devToggleSlow">🐢 Slow Motion</button>
+    </div>
+  </div>
+
+  <div class="dev-log-wrap">
+    <div class="dev-section-label">📋 Log</div>
+    <div id="devLog" class="dev-log"></div>
+    <button class="dev-btn" id="devClearLog" style="margin-top:6px;width:100%">Clear Log</button>
   </div>
 </div>
 
@@ -47,7 +133,7 @@
   <div class="teach-box">
     <div class="teach-top">
       <div class="teach-top-left">
-        <span class="teach-tag" id="teachTag">Level 1 of 3</span>
+        <span class="teach-tag" id="teachTag">Level 1 of 5</span>
         <h2 id="teachTitle">Login Screen UX</h2>
         <p class="teach-sub" id="teachSub"></p>
       </div>
@@ -99,6 +185,10 @@
         <span class="tb-pill" id="pill2">2</span>
         <span class="tb-pill-line"></span>
         <span class="tb-pill" id="pill3">3</span>
+        <span class="tb-pill-line"></span>
+        <span class="tb-pill" id="pill4">4</span>
+        <span class="tb-pill-line"></span>
+        <span class="tb-pill" id="pill5">5</span>
       </div>
     </div>
     <div class="tb-right-group">
@@ -187,6 +277,47 @@
         </div>
       </div>
 
+      <!-- LEVEL 4: Email Composer (broken) -->
+      <div id="lv4wrap" class="devWrap hide">
+        <div class="browser-window">
+          <div class="browser-bar">
+            <div class="browser-dots"><span></span><span></span><span></span></div>
+            <div class="browser-url">🔒 mail.compose.io</div>
+          </div>
+          <div class="browser-content" id="lv4screen">
+            <div class="email-header-bar">
+              <span class="email-logo">✉️ Compose</span>
+              <span class="email-sub">New Message</span>
+            </div>
+            <div class="zone" id="z4to"      style="left:14px;top:54px;width:456px;height:40px"    data-correct="p4to"></div>
+            <div class="zone" id="z4subject" style="left:14px;top:104px;width:456px;height:40px"   data-correct="p4subject"></div>
+            <div class="zone" id="z4body"    style="left:14px;top:154px;width:456px;height:108px"  data-correct="p4body"></div>
+            <div class="zone" id="z4send"    style="left:340px;top:274px;width:130px;height:42px"  data-correct="p4send"></div>
+            <div class="zone" id="z4attach"  style="left:14px;top:274px;width:110px;height:42px"   data-correct="p4attach"></div>
+            <div class="zone decoy" id="z4decoy" style="left:132px;top:274px;width:198px;height:42px" data-correct="none"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LEVEL 5: Profile Settings (broken) -->
+      <div id="lv5wrap" class="devWrap hide">
+        <div class="browser-window wide">
+          <div class="browser-bar">
+            <div class="browser-dots"><span></span><span></span><span></span></div>
+            <div class="browser-url">🔒 app.settings.io/profile</div>
+          </div>
+          <div class="browser-content dash" id="lv5screen">
+            <div class="zone" id="z5avatar"  style="left:14px;top:8px;width:96px;height:96px"       data-correct="p5avatar"></div>
+            <div class="zone" id="z5name"    style="left:120px;top:8px;width:340px;height:44px"     data-correct="p5name"></div>
+            <div class="zone" id="z5bio"     style="left:120px;top:62px;width:340px;height:44px"    data-correct="p5bio"></div>
+            <div class="zone" id="z5danger"  style="left:14px;top:278px;width:200px;height:40px"    data-correct="p5danger"></div>
+            <div class="zone" id="z5save"    style="left:340px;top:278px;width:120px;height:40px"   data-correct="p5save"></div>
+            <div class="zone decoy" id="z5decoy1" style="left:14px;top:120px;width:460px;height:140px" data-correct="none"></div>
+            <div class="zone decoy" id="z5decoy2" style="left:224px;top:278px;width:106px;height:40px" data-correct="none"></div>
+          </div>
+        </div>
+      </div>
+
     </div><!-- end #canvasCol -->
 
     <!-- PIECE TRAY -->
@@ -228,7 +359,7 @@
   <div class="final-card">
     <div class="f-trophy">🏆</div>
     <h2>Design Rescued!</h2>
-    <p class="f-sub">You fixed all 3 broken interfaces</p>
+    <p class="f-sub">You fixed all 5 broken interfaces</p>
     <div class="f-grade-row">
       <div class="f-grade-block">
         <div id="fGrade" class="f-grade">A+</div>

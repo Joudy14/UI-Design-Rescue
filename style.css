@@ -794,3 +794,351 @@ body {
   .istat-div { display: none; }
   .istat { padding: 0 10px; }
 }
+/* =====================================================
+   WAVE CANVAS (INTRO)
+===================================================== */
+#waveCanvas {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  pointer-events: none; z-index: 0;
+  display: block;
+}
+#introScreen .intro-grid-bg { z-index: 1; }
+#introScreen .intro-blobs   { z-index: 1; }
+#introScreen .intro-box     { z-index: 3; }
+
+/* =====================================================
+   AWWWARDS EFFECT 1 — CUSTOM MAGNETIC CURSOR
+   Inspired by: hover cursor interactions collection
+===================================================== */
+* { cursor: none !important; }
+
+#gr-cursor {
+  position: fixed; top: 0; left: 0;
+  width: 12px; height: 12px;
+  background: var(--violet);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s ease, height 0.2s ease, background 0.2s ease, opacity 0.2s ease;
+  mix-blend-mode: normal;
+}
+#gr-cursor-ring {
+  position: fixed; top: 0; left: 0;
+  width: 38px; height: 38px;
+  border: 1.5px solid rgba(124,58,237,0.55);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%, -50%);
+  transition: width 0.35s ease, height 0.35s ease, border-color 0.25s ease, opacity 0.25s ease;
+}
+#gr-cursor.cursor-hover {
+  width: 0px; height: 0px;
+  opacity: 0;
+}
+#gr-cursor-ring.cursor-hover {
+  width: 60px; height: 60px;
+  border-color: rgba(124,58,237,0.35);
+  background: rgba(124,58,237,0.06);
+}
+#gr-cursor.cursor-drag {
+  width: 18px; height: 18px;
+  background: var(--pink);
+  border-radius: 50%;
+}
+#gr-cursor-ring.cursor-drag {
+  width: 52px; height: 52px;
+  border-color: rgba(236,72,153,0.5);
+}
+#gr-cursor.cursor-click {
+  transform: translate(-50%, -50%) scale(0.6);
+}
+
+
+/* =====================================================
+   EFFECT 2 — INK RIPPLE ON CLICK + SHIMMER SWEEP ON HOVER
+   Clean, satisfying button interactions
+===================================================== */
+.btn-primary, .btn-success, .btn-sec {
+  transition: transform 0.18s ease, box-shadow 0.18s ease,
+              background 0.2s ease, border-color 0.18s ease;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Ink ripple (click) */
+@keyframes inkExpand {
+  0%   { opacity: 0.7; }
+  100% { opacity: 0; }
+}
+
+/* Shimmer sweep (hover) — a soft angled gleam slides left→right */
+.btn-shimmer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: linear-gradient(
+    105deg,
+    transparent 35%,
+    rgba(255,255,255,0.18) 50%,
+    transparent 65%
+  );
+  transform: translateX(-100%);
+  transition: transform 0s;
+}
+.btn-primary:hover .btn-shimmer,
+.btn-success:hover .btn-shimmer,
+.btn-sec:hover     .btn-shimmer {
+  transform: translateX(160%);
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
+/* =====================================================
+   AWWWARDS EFFECT 5 — CURSOR SPOTLIGHT
+   Radial glow follows cursor over device canvas
+===================================================== */
+#canvasSpotlight {
+  will-change: left, top;
+}
+
+/* =====================================================
+   AWWWARDS EFFECT 3 — TRAY PIECE SHEEN ON HOVER
+   Sliding light shimmer across cards on hover
+===================================================== */
+.tray-piece {
+  overflow: hidden;
+}
+.tray-piece::after {
+  content: '';
+  position: absolute;
+  top: -50%; left: -75%;
+  width: 50%; height: 200%;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(255,255,255,0.18) 50%,
+    transparent 60%
+  );
+  transform: skewX(-15deg);
+  transition: left 0.4s ease;
+  pointer-events: none;
+}
+.tray-piece:hover::after {
+  left: 130%;
+}
+
+/* =====================================================
+   AWWWARDS EFFECT 4 — ZONE PULSE RING on correct drop
+===================================================== */
+@keyframes zonePulseRing {
+  0%   { box-shadow: 0 0 0 0 rgba(16,185,129,0.5); }
+  70%  { box-shadow: 0 0 0 14px rgba(16,185,129,0); }
+  100% { box-shadow: 0 0 0 0 rgba(16,185,129,0); }
+}
+.zone.zone-correct {
+  animation: zonePulseRing 0.6s ease forwards;
+}
+
+/* =====================================================
+   AWWWARDS EFFECT 5 — SCORE POP PARTICLE burst
+===================================================== */
+.score-burst {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9997;
+  font-family: 'Syne', sans-serif;
+  font-size: 16px; font-weight: 800;
+  color: var(--violet);
+  animation: scoreBurst 0.75s cubic-bezier(0.22,1,0.36,1) forwards;
+  white-space: nowrap;
+}
+@keyframes scoreBurst {
+  0%   { transform: translateY(0) scale(0.7); opacity: 1; }
+  60%  { transform: translateY(-48px) scale(1.1); opacity: 1; }
+  100% { transform: translateY(-72px) scale(1); opacity: 0; }
+}
+
+/* =====================================================
+   AWWWARDS EFFECT 6 — SMOOTH PAGE TRANSITIONS
+===================================================== */
+.screen-enter {
+  animation: screenFadeUp 0.45s cubic-bezier(0.22,1,0.36,1) forwards;
+}
+@keyframes screenFadeUp {
+  0%   { opacity: 0; transform: translateY(22px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* =====================================================
+   SPOTIFY LOGO FIX
+===================================================== */
+.logo-piece {
+  z-index: 12; width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+}
+.spotify-logo {
+  display: flex; align-items: center; gap: 6px; padding: 4px 8px; white-space: nowrap;
+}
+.sp-icon { font-size: 16px; }
+.sp-name { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 800; color: #fff; letter-spacing: 0.02em; }
+
+/* =====================================================
+   AWWWARDS EFFECT 7 — DRAG TRAIL (orange → violet)
+===================================================== */
+@keyframes trailFade {
+  0%   { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(0.1) translateY(-14px); opacity: 0; }
+}
+@keyframes floatPickup {
+  0%   { transform: scale(0.88) rotate(0deg); opacity: 0.4; }
+  100% { transform: scale(1.08) rotate(-2deg); opacity: 0.97; }
+}
+
+/* =====================================================
+   DEV MODE
+===================================================== */
+.btn-dev-toggle {
+  margin-top: 18px;
+  display: inline-flex; align-items: center; gap: 6px;
+  background: transparent;
+  color: var(--muted);
+  border: 1px dashed rgba(255,255,255,0.15);
+  border-radius: 100px;
+  padding: 7px 18px;
+  font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 600;
+  cursor: pointer; letter-spacing: 0.04em;
+  transition: border-color 0.2s, color 0.2s;
+}
+.btn-dev-toggle:hover { border-color: var(--violet); color: var(--violet); }
+
+.dev-panel {
+  position: fixed;
+  top: 50%; right: 20px;
+  transform: translateY(-50%);
+  z-index: 99990;
+  width: 420px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #0f0e17;
+  border: 1px solid rgba(124,58,237,0.35);
+  border-radius: 18px;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.7), 0 0 0 1px rgba(124,58,237,0.12);
+  font-family: 'DM Sans', sans-serif;
+  animation: devPanelIn 0.3s cubic-bezier(0.22,1,0.36,1);
+}
+@keyframes devPanelIn {
+  from { opacity: 0; transform: translateY(-50%) translateX(24px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(-50%) translateX(0)    scale(1); }
+}
+
+.dev-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 18px 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  position: sticky; top: 0;
+  background: #0f0e17;
+  border-radius: 18px 18px 0 0;
+  z-index: 1;
+}
+.dev-title {
+  font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 800;
+  color: var(--violet); display: flex; align-items: center; gap: 8px;
+}
+.dev-badge {
+  font-size: 9px; font-weight: 800; letter-spacing: 0.12em;
+  background: rgba(124,58,237,0.2); color: var(--violet);
+  border: 1px solid rgba(124,58,237,0.3);
+  border-radius: 4px; padding: 2px 6px; text-transform: uppercase;
+}
+.dev-close {
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px; width: 28px; height: 28px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--muted); font-size: 13px; cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.dev-close:hover { background: rgba(239,68,68,0.15); color: #f87171; border-color: rgba(239,68,68,0.3); }
+
+.dev-section {
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.dev-section-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 8px;
+}
+.dev-row {
+  display: flex; flex-wrap: wrap; gap: 6px; align-items: center;
+  margin-bottom: 4px;
+}
+.dev-row:last-child { margin-bottom: 0; }
+
+.dev-label {
+  font-size: 11px; color: var(--muted); white-space: nowrap;
+}
+
+.dev-btn {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 8px; padding: 6px 12px;
+  font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 600;
+  color: #c8c4e0; cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.1s;
+  white-space: nowrap;
+}
+.dev-btn:hover {
+  background: rgba(124,58,237,0.18);
+  border-color: rgba(124,58,237,0.45);
+  color: #fff; transform: translateY(-1px);
+}
+.dev-btn:active { transform: scale(0.96); }
+
+.dev-btn-success {
+  border-color: rgba(16,185,129,0.25);
+  color: #6ee7b7;
+}
+.dev-btn-success:hover {
+  background: rgba(16,185,129,0.15);
+  border-color: rgba(16,185,129,0.5);
+  color: #fff;
+}
+.dev-btn-danger {
+  border-color: rgba(239,68,68,0.25);
+  color: #fca5a5;
+}
+.dev-btn-danger:hover {
+  background: rgba(239,68,68,0.15);
+  border-color: rgba(239,68,68,0.5);
+  color: #fff;
+}
+
+.dev-log-wrap { padding: 12px 16px; }
+.dev-log {
+  background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 8px; padding: 8px 10px;
+  font-family: 'DM Mono', 'Courier New', monospace; font-size: 11px;
+  color: #a0e0a0; line-height: 1.7; max-height: 120px; overflow-y: auto;
+  display: flex; flex-direction: column-reverse;
+}
+.dev-log-entry { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dev-log-entry.warn  { color: #fbbf24; }
+.dev-log-entry.error { color: #f87171; }
+.dev-log-entry.info  { color: #a78bfa; }
+
+/* Slow-motion state */
+body.dev-slow * { animation-duration: 4s !important; transition-duration: 0.8s !important; }
+
+/* Zone reveal override */
+body.dev-zones-visible .zone {
+  border-color: rgba(124,58,237,0.6) !important;
+  background: rgba(124,58,237,0.08) !important;
+}
+body.dev-zones-visible .zone.decoy {
+  border-color: rgba(236,72,153,0.6) !important;
+  background: rgba(236,72,153,0.08) !important;
+}
