@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UI/UX Design Rescue</title>
+  <script>
+    /* Prevent theme flash — restore saved preference before paint */
+    (function () {
+      try {
+        var t = localStorage.getItem("ux-rescue-theme");
+        if (t === "dark" || t === "light") document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=4" />
+  <meta name="game-version" content="4.0.0-responsive-mockups" />
+  <link rel="icon" type="image/jpeg" href="logo1.jpg" />
+</head>
+<body>
+
+<a class="skip-link" href="#gameArea">Skip to game</a>
+
+<!-- SCREEN A — INTRO -->
+<div id="introScreen" class="screen show" role="banner" aria-label="Game introduction">
+  <div class="gr-orbs" aria-hidden="true">
+    <div class="gr-orb gr-orb-1"></div>
+    <div class="gr-orb gr-orb-2"></div>
+    <div class="gr-orb gr-orb-3"></div>
+    <div class="gr-orb gr-orb-4"></div>
+    <div class="gr-orb gr-orb-5"></div>
+  </div>
+  <div class="gr-noise" aria-hidden="true"></div>
+  <main class="intro-box">
+    <p class="intro-badge">15 Levels · Phone · Tablet · Laptop</p>
+    <h1>UI/UX<br/><span class="gradient-text">Design Rescue</span></h1>
+    <p class="intro-sub">Restore broken interfaces by placing UI elements in the correct zones, then Submit for evaluation.</p>
+    <div class="intro-stats" role="group" aria-label="Game stats">
+      <div class="istat">
+        <span class="istat-n" aria-label="15 levels">15</span>
+        <span class="istat-l">Levels</span>
+      </div>
+      <div class="istat-div" aria-hidden="true"></div>
+      <div class="istat">
+        <span class="istat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span>
+        <span class="istat-l">Timed</span>
+      </div>
+      <div class="istat-div" aria-hidden="true"></div>
+      <div class="istat">
+        <span class="istat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span>
+        <span class="istat-l">Decoys</span>
+      </div>
+    </div>
+    <button type="button" class="btn-primary" id="btnIntroStart" aria-label="Start game">
+      Start <span class="btn-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </button>
+    <button type="button" class="btn-dev-toggle" id="btnOpenDev" aria-label="Open developer mode panel">Dev Mode</button>
+  </main>
+</div>
+
+<!-- DEV MODE PANEL -->
+<aside id="devPanel" class="dev-panel hide" role="complementary" aria-label="Developer tools">
+  <header class="dev-header">
+    <span class="dev-title">Dev Mode <span class="dev-badge">TESTING</span></span>
+    <button type="button" class="dev-close" id="btnCloseDev" aria-label="Close developer panel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+  </header>
+  <section class="dev-section" aria-labelledby="dev-timer-label">
+    <h2 class="dev-section-label" id="dev-timer-label">Timer</h2>
+    <div class="dev-row">
+      <button type="button" class="dev-btn" id="devPauseTimer">Pause</button>
+      <button type="button" class="dev-btn" id="devResumeTimer">Resume</button>
+      <button type="button" class="dev-btn" id="devAdd30">+30s</button>
+      <button type="button" class="dev-btn" id="devSetTimer10">Set 10s</button>
+      <button type="button" class="dev-btn dev-btn-danger" id="devKillTimer">Time Up</button>
+    </div>
+  </section>
+  <section class="dev-section" aria-labelledby="dev-levels-label">
+    <h2 class="dev-section-label" id="dev-levels-label">Levels</h2>
+    <div class="dev-row">
+      <button type="button" class="dev-btn" id="devSkipLevel">Skip</button>
+      <button type="button" class="dev-btn" id="devPrevLevel">Prev</button>
+      <button type="button" class="dev-btn dev-btn-success" id="devWinLevel">Win Level</button>
+      <button type="button" class="dev-btn dev-btn-danger" id="devGoFinal">Final</button>
+    </div>
+    <div class="dev-row dev-level-grid" id="devLevelBtns"></div>
+  </section>
+  <section class="dev-section" aria-labelledby="dev-score-label">
+    <h2 class="dev-section-label" id="dev-score-label">Score</h2>
+    <div class="dev-row">
+      <button type="button" class="dev-btn dev-btn-success" id="devAdd500">+500</button>
+      <button type="button" class="dev-btn dev-btn-success" id="devAdd100">+100</button>
+      <button type="button" class="dev-btn dev-btn-danger" id="devZeroScore">Zero</button>
+      <button type="button" class="dev-btn dev-btn-danger" id="devMaxScore">Max</button>
+    </div>
+  </section>
+  <section class="dev-section" aria-labelledby="dev-pieces-label">
+    <h2 class="dev-section-label" id="dev-pieces-label">Pieces</h2>
+    <div class="dev-row">
+      <button type="button" class="dev-btn dev-btn-success" id="devAutoPlace">Auto-Place</button>
+      <button type="button" class="dev-btn dev-btn-danger" id="devResetPieces">Reset</button>
+      <button type="button" class="dev-btn" id="devRevealZones">Reveal Zones</button>
+      <button type="button" class="dev-btn" id="devHideZones">Hide Zones</button>
+    </div>
+  </section>
+  <section class="dev-section" aria-labelledby="dev-combo-label">
+    <h2 class="dev-section-label" id="dev-combo-label">Combo</h2>
+    <div class="dev-row">
+      <button type="button" class="dev-btn dev-btn-success" id="devSetCombo5">x5</button>
+      <button type="button" class="dev-btn dev-btn-success" id="devSetCombo10">x10</button>
+      <button type="button" class="dev-btn dev-btn-danger" id="devBreakCombo">Break</button>
+    </div>
+  </section>
+  <section class="dev-section" aria-labelledby="dev-display-label">
+    <h2 class="dev-section-label" id="dev-display-label">Display</h2>
+    <div class="dev-row">
+      <button type="button" class="dev-btn" id="devFlashStrip">Flash Strip</button>
+      <button type="button" class="dev-btn" id="devToggleSlow">Slow Motion</button>
+    </div>
+  </section>
+  <section class="dev-log-wrap" aria-labelledby="dev-log-label">
+    <h2 class="dev-section-label" id="dev-log-label">Log</h2>
+    <div id="devLog" class="dev-log" role="log" aria-live="polite"></div>
+    <button type="button" class="dev-btn" id="devClearLog" style="margin-top:6px;width:100%">Clear Log</button>
+  </section>
+</aside>
+
+<!-- SCREEN B — TARGET PREVIEW -->
+<div id="targetScreen" class="screen" role="region" aria-label="Target design preview">
+  <main class="target-layout">
+    <h2 class="target-level-title" id="targetLevelTitle">Level 1</h2>
+    <nav class="target-pills" id="targetPills" aria-label="Level progress"></nav>
+    <figure class="target-figure">
+      <div id="targetDeviceMount" class="target-device-mount" aria-hidden="true"></div>
+    </figure>
+    <button type="button" class="btn-primary" id="btnTargetGo" aria-label="Start fixing this interface">
+      Fix It <span class="btn-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </button>
+  </main>
+</div>
+
+<!-- SCREEN C — GAME -->
+<div id="gameScreen" class="screen" role="application" aria-label="UI design rescue game">
+
+  <header id="topbar" role="banner">
+    <div class="tb-brand" aria-label="UX Rescue">UX Rescue</div>
+    <div id="levelTitleBar" class="level-title-bar" aria-live="polite">Level 1</div>
+    <nav class="tb-center" aria-label="Level navigation">
+      <div class="tb-pills" id="tbPills"></div>
+    </nav>
+    <div class="tb-right-group">
+      <button type="button" class="theme-toggle" id="btnThemeToggle" aria-label="Toggle dark mode" aria-pressed="false">
+        <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        <svg class="theme-icon theme-icon-moon hide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+      </button>
+      <div class="tb-timer-wrap" role="timer" aria-live="polite" aria-atomic="true">
+        <svg class="timer-ring" viewBox="0 0 36 36" aria-hidden="true">
+          <circle class="ring-bg" cx="18" cy="18" r="15.9"/>
+          <circle class="ring-fill" id="timerRing" cx="18" cy="18" r="15.9"/>
+        </svg>
+        <span class="tb-timer" id="tbTimer" aria-label="Seconds remaining">60</span>
+      </div>
+      <div class="tb-score-wrap">
+        <span class="tb-score-label">Score</span>
+        <span class="tb-score-val" id="tbScore" aria-live="polite">0</span>
+      </div>
+      <div class="tb-combo-wrap hide" id="comboWrap" aria-live="polite">
+        <span class="combo-badge" id="comboBadge">x1</span>
+      </div>
+    </div>
+  </header>
+
+  <div id="strip" class="strip-neutral" role="status" aria-live="polite">
+    <span id="stripText">Drag elements from the tray into zones, then Submit.</span>
+  </div>
+
+  <main id="gameArea">
+
+    <section id="canvasCol" aria-label="Device canvas">
+
+      <!-- LEVEL 1: Phone — Login -->
+      <div id="lv1wrap" class="devWrap" data-device="phone" data-level="1" data-level-name="Login Screen">
+        <figure class="device-mockup device-mockup--phone" aria-label="Smartphone frame">
+          <img src="iphone.png" alt="" class="device-mockup-img" draggable="false" />
+          <main class="device-screen-overlay device-screen device-screen--login" role="main" aria-label="Broken login screen">
+              <div class="app-bg-dark" aria-hidden="true"></div>
+              <div class="zone" id="z1logo" data-correct="p1logo" role="button" aria-label="Drop zone: brand logo" tabindex="0"></div>
+              <div class="zone" id="z1email" data-correct="p1email" role="button" aria-label="Drop zone: email field" tabindex="0"></div>
+              <div class="zone" id="z1password" data-correct="p1password" role="button" aria-label="Drop zone: password field" tabindex="0"></div>
+              <div class="zone" id="z1btn" data-correct="p1btn" role="button" aria-label="Drop zone: sign in button" tabindex="0"></div>
+              <div class="zone" id="z1forgot" data-correct="p1forgot" role="button" aria-label="Drop zone: forgot password" tabindex="0"></div>
+              <div class="zone decoy" id="z1decoy" data-correct="none" role="button" aria-label="Decoy zone" tabindex="0"></div>
+            </main>
+        </figure>
+      </div>
+
+      <!-- LEVEL 2: Phone — Profile -->
+      <div id="lv2wrap" class="devWrap hide" data-device="phone" data-level="2" data-level-name="Mobile Profile">
+        <figure class="device-mockup device-mockup--phone" aria-label="Smartphone frame">
+          <img src="iphone.png" alt="" class="device-mockup-img" draggable="false" />
+          <main class="device-screen-overlay device-screen device-screen--profile" role="main" aria-label="Broken profile screen">
+              <div class="profile-shell" aria-hidden="true"><div class="profile-cover"></div></div>
+              <div class="zone" id="z2cover" data-correct="p2cover" role="button" aria-label="Drop zone: cover photo" tabindex="0"></div>
+              <div class="zone" id="z2avatar" data-correct="p2avatar" role="button" aria-label="Drop zone: avatar" tabindex="0"></div>
+              <div class="zone" id="z2name" data-correct="p2name" role="button" aria-label="Drop zone: display name" tabindex="0"></div>
+              <div class="zone" id="z2bio" data-correct="p2bio" role="button" aria-label="Drop zone: bio" tabindex="0"></div>
+              <div class="zone" id="z2save" data-correct="p2save" role="button" aria-label="Drop zone: save button" tabindex="0"></div>
+              <div class="zone decoy" id="z2decoy" data-correct="none" role="button" aria-label="Decoy zone" tabindex="0"></div>
+            </main>
+        </figure>
+      </div>
+
+      <!-- LEVEL 3: Phone — Checkout -->
+      <div id="lv3wrap" class="devWrap hide" data-device="phone" data-level="3" data-level-name="Mobile Checkout">
+        <figure class="device-mockup device-mockup--phone" aria-label="Smartphone frame">
+          <img src="iphone.png" alt="" class="device-mockup-img" draggable="false" />
+          <main class="device-screen-overlay device-screen device-screen--checkout-m" role="main" aria-label="Broken mobile checkout">
+              <header class="m-checkout-header"><span>Checkout</span></header>
+              <div class="zone" id="z3summary" data-correct="p3summary" role="button" aria-label="Drop zone: order summary" tabindex="0"></div>
+              <div class="zone" id="z3ship" data-correct="p3ship" role="button" aria-label="Drop zone: shipping" tabindex="0"></div>
+              <div class="zone" id="z3card" data-correct="p3card" role="button" aria-label="Drop zone: payment card" tabindex="0"></div>
+              <div class="zone" id="z3pay" data-correct="p3pay" role="button" aria-label="Drop zone: pay button" tabindex="0"></div>
+              <div class="zone decoy" id="z3decoy" data-correct="none" role="button" aria-label="Decoy zone" tabindex="0"></div>
+            </main>
+        </figure>
+      </div>
+
+      <!-- LEVEL 4: Phone — Social Feed -->
+      <div id="lv4wrap" class="devWrap hide" data-device="phone" data-level="4" data-level-name="Social Feed">
+        <figure class="device-mockup device-mockup--phone" aria-label="Smartphone frame">
+          <img src="iphone.png" alt="" class="device-mockup-img" draggable="false" />
+          <main class="device-screen-overlay device-screen device-screen--feed" role="main" aria-label="Broken social feed">
+              <div class="zone" id="z4stories" data-correct="p4stories" role="button" aria-label="Drop zone: stories row" tabindex="0"></div>
+              <div class="zone" id="z4post" data-correct="p4post" role="button" aria-label="Drop zone: post header" tabindex="0"></div>
+              <div class="zone" id="z4content" data-correct="p4content" role="button" aria-label="Drop zone: post content" tabindex="0"></div>
+              <div class="zone" id="z4actions" data-correct="p4actions" role="button" aria-label="Drop zone: action bar" tabindex="0"></div>
+              <div class="zone" id="z4comment" data-correct="p4comment" role="button" aria-label="Drop zone: comment input" tabindex="0"></div>
+              <div class="zone decoy" id="z4decoy" data-correct="none" role="button" aria-label="Decoy zone" tabindex="0"></div>
+            </main>
+        </figure>
+      </div>
+
+      <!-- LEVEL 5: Phone — Settings -->
+      <div id="lv5wrap" class="devWrap hide" data-device="phone" data-level="5" data-level-name="App Settings">
+        <figure class="device-mockup device-mockup--phone" aria-label="Smartphone frame">
+          <img src="iphone.png" alt="" class="device-mockup-img" draggable="false" />
+          <main class="device-screen-overlay device-screen device-screen--settings" role="main" aria-label="Broken settings menu">
+              <header class="settings-header"><h1>Settings</h1></header>
+              <div class="zone" id="z5profile" data-correct="p5profile" role="button" aria-label="Drop zone: profile row" tabindex="0"></div>
+              <div class="zone" id="z5notify" data-correct="p5notify" role="button" aria-label="Drop zone: notifications" tabindex="0"></div>
+              <div class="zone" id="z5privacy" data-correct="p5privacy" role="button" aria-label="Drop zone: privacy" tabindex="0"></div>
+              <div class="zone" id="z5theme" data-correct="p5theme" role="button" aria-label="Drop zone: theme" tabindex="0"></div>
+              <div class="zone" id="z5logout" data-correct="p5logout" role="button" aria-label="Drop zone: sign out" tabindex="0"></div>
+              <div class="zone decoy" id="z5decoy" data-correct="none" role="button" aria-label="Decoy zone" tabindex="0"></div>
+            </main>
+        </figure>
+      </div>
+
+      <!-- LEVEL 6: Tablet — POS -->
+      <div id="lv6wrap" class="devWrap hide" data-device="tablet" data-level="6" data-level-name="POS System">
+        <figure class="device-mockup device-mockup--tablet" aria-label="Tablet frame">
+          <img src="ipad.png" alt="" class="device-mockup-img" draggable="false" />
+          <main class="device-screen-overlay device-screen device-screen--pos" role="main" aria-label="Broken POS system">
+              <div class="zone" id="z6tabs" data-correct="p6tabs" role="button" aria-label="Drop zone: categories" tabindex="0"></div>
+              <div class="zone" id="z6grid" data-correct="p6grid" role="button" aria-label="Drop zone: product grid" tabindex="0"></div>
+              <div class="zone" id="z6cart" data-correct="p6cart" role="button" aria-label="Drop zone: cart panel" tabindex="0"></div>
+              <div class="zone" id="z6keypad" data-correct="p6keypad" role="button" aria-label="Drop zone: numpad" tabindex="0"></div>
+              <div class="zone" id="z6total" data-correct="p6total" role="button" aria-label="Drop zone: pay total" tabindex="0"></div>
+              <div class="zone decoy" id="z6decoy" data-correct="none" role="button" aria-label="Decoy zone" tabindex="0"></div>
+            </main>
+        </figure>
+      </div>
+
+      <!-- LEVEL 7: Tablet — Smart Home -->
+      <div id="lv7wrap" class="devWrap hide" data-device="tablet" data-level="7" data-level-name="Smart Home">
+        <figure class="device-mockup device-mockup--tablet" aria-label="Tablet frame">
+          <img src="ipad.png" alt="" class="device-mockup-img" draggable="false" />
+          <main class="device-screen-overlay device-screen device-screen--smarthome" role="main" aria-label="Broken smart home dashboard">
+              <div class="zone" id="z7rooms" data-correct="p7rooms" role="button" aria-label="Drop zone: room selector" tabindex="0"></div>
+              <div class="zone" id="z7devices" data-correct="p7devices" role="button" aria-label="Drop zone: device cards" tabindex="0"></div>
+              <div class="zone" id="z7thermo" data-correct="p7thermo" role="button" aria-label="Drop zone: thermostat" tabindex="0"></div>
+              <div class="zone" id="z7scenes" data-correct="p7scenes" role="button" aria-label="Drop zone: scenes" tabindex="0"></div>
+              <div class="zone" id="z7quick" data-correct="p7quick" role="button" aria-label="Drop zone: quick actions" tabindex="0"></div>
+              <div class="zone decoy" id="z7decoy" data-correct="none" role="button" aria-label="Decoy zone" tabindex="0"></div>
+            </main>
+        </figure>
+      </div>
+
+      <!-- LEVEL 8: Tablet — Recipe -->
+      <div id="lv8wrap" class="devWrap hide" data-device="tablet" data-level="8" data-level-name="Recipe App">
+        <figure class="device-mockup device-mockup--tablet" aria-label="Tablet frame">
+          <img src="ipad.png" alt="" class="device-mockup-img" draggable="false" />
+          <main class="device-screen-overlay device-screen device-screen--recipe" role="main" aria-label="Broken recipe app">
+              <div class="zone" id="z8hero" data-correct="p8hero" role="button" aria-label="Drop zone: hero image" tabindex="0"></div>
+              <div class="zone" id="z8title" data-correct="p8title" role="button" aria-label="Drop zone: title and ingredients" tabindex="0"></div>
+              <div class="zone" id="z8steps" data-correct="p8steps" role="button" aria-label="Drop zone: cooking steps" tabindex="0"></div>
+              <div class="zone" id="z8timer" data-correct="p8timer" role="button" aria-label="Drop zone: timer" tabindex="0"></div>
+              <div class="zone" id="z8servings" data-correct="p8servings" role="button" aria-label="Drop zone: servings" tabindex="0"></div>
+              <div class="zone decoy" id="z8decoy" data-correct="none" role="button" aria-label="Decoy zone" tabindex="0"></div>
+            </main>
+        </figure>
+      </div>
+
+      <!-- LEVEL 9: Tablet — E-Reader -->
+      <div id="lv9wrap" class="devWrap hide" data-device="tablet" data-level="9" data-level-name="E-Reader">
+        <figure class="device-mockup device-mockup--tablet" aria-label="Tablet frame">
+          <img src="ipad.png" alt="" class="device-mockup-img" draggable="false" />
+          <main class="device-screen-overlay device-screen device-screen--reader" role="main" aria-label="Broken e-reader layout">
+              <div class="zone" id="z9chapter" data-correct="p9chapter" role="button" aria-label="Drop zone: chapter title" tabindex="0"></div>
+              <div class="zone" id="z9body" data-correct="p9body" role="button" aria-label="Drop zone: body text" tabindex="0"></div>
+              <div class="zone" id="z9progress" data-correct="p9progress" role="button" aria-label="Drop zone: page progress" tabindex="0"></div>
+              <div class="zone" id="z9font" data-correct="p9font" role="button" aria-label="Drop zone: font control" tabindex="0"></div>
+              <div class="zone" id="z9bookmark" data-correct="p9bookmark" role="button" aria-label="Drop zone: bookmark" tabindex="0"></div>
+              <div class="zone decoy" id="z9decoy" data-correct="none" role="button" aria-label="Decoy zone" tabindex="0"></div>
+            </main>
+        </figure>
+      </div>
+
+      <!-- LEVEL 10: Tablet — Calendar -->
+      <div id="lv10wrap" class="devWrap hide" data-device="tablet" data-level="10" data-level-name="Calendar">
+        <figure class="device-mockup device-mockup--tablet" aria-label="Tablet frame">
+          <img src="ipad.png" alt="" class="device-mockup-img" draggable="false" />
+          <main class="device-screen-overlay device-screen device-screen--calendar" role="main" aria-label="Broken calendar app">
+              <div class="zone" id="z10nav" data-correct="p10nav" role="button" aria-label="Drop zone: sidebar nav" tabindex="0"></div>
+              <div class="zone" id="z10header" data-correct="p10header" role="button" aria-label="Drop zone: month header" tabindex="0"></div>
+              <div class="zone" id="z10grid" data-correct="p10grid" role="button" aria-label="Drop zone: week grid" tabindex="0"></div>
+              <div class="zone" id="z10events" data-correct="p10events" role="button" aria-label="Drop zone: event list" tabindex="0"></div>
+              <div class="zone" id="z10create" data-correct="p10create" role="button" aria-label="Drop zone: create event" tabindex="0"></div>
+              <div class="zone decoy" id="z10decoy" data-correct="none" role="button" aria-label="Decoy zone" tabindex="0"></div>
+            </main>
+        </figure>
+      </div>
+
+      <!-- LEVEL 11: Laptop — SaaS Dashboard -->
+      <div id="lv11wrap" class="devWrap hide" data-device="laptop" data-level="11" data-level-name="SaaS Dashboard">
+        <figure class="device-mockup device-mockup--laptop" aria-label="Laptop frame">
+          <img src="macbook.png" alt="" class="device-mockup-img" draggable="false" />
+          <main class="device-screen-overlay device-screen device-screen--dashboard" role="main" aria-label="Broken SaaS dashboard">
+              <div class="zone" id="z11sidebar" data-correct="p11sidebar" role="button" aria-label="Drop zone: sidebar" tabindex="0"></div>
+              <div class="zone" id="z11kpi" data-correct="p11kpi" role="button" aria-label="Drop zone: KPI cards" tabindex="0"></div>
+              <div class="zone" id="z11chart" data-correct="p11chart" role="button" aria-label="Drop zone: analytics chart" tabindex="0"></div>
+              <div class="zone" id="z11filter" data-correct="p11filter" role="button" aria-label="Drop zone: date filter" tabindex="0"></div>
+              <div class="zone" id="z11export" data-correct="p11export" role="button" aria-label="Drop zone: export button" tabindex="0"></div>
+              <div class="zone decoy" id="z11decoy" data-correct="none" role="button" aria-label="Decoy zone" tabindex="0"></div>
+            </main>
+        </figure>
+      </div>
+
+      <!-- LEVEL 12: Laptop — Email -->
+      <div id="lv12wrap" class="devWrap hide" data-device="laptop" data-level="12" data-level-name="Email Client">
+        <figure class="device-mockup device-mockup--laptop" aria-label="Laptop frame">
+          <img src="macbook.png" alt="" class="device-mockup-img" draggable="false" />
+          <main class="device-screen-overlay device-screen device-screen--email-client" role="main" aria-label="Broken email client">
+              <div class="zone" id="z12folders" data-correct="p12folders" role="button" aria-label="Drop zone: folder sidebar" tabindex="0"></div>
+              <div class="zone" id="z12list" data-correct="p12list" role="button" aria-label="Drop zone: message list" tabindex="0"></div>
+              <div class="zone" id="z12preview" data-correct="p12preview" role="button" aria-label="Drop zone: reading pane" tabindex="0"></div>
+              <div class="zone" id="z12compose" data-correct="p12compose" role="button" aria-label="Drop zone: compose button" tabindex="0"></div>
+              <div class="zone decoy" id="z12decoy" data-correct="none" role="button" aria-label="Decoy zone" tabindex="0"></div>
+            </main>
+        </figure>
+      </div>
+
+      <!-- LEVEL 13: Laptop — Kanban -->
+      <div id="lv13wrap" class="devWrap hide" data-device="laptop" data-level="13" data-level-name="Kanban Board">
+        <figure class="device-mockup device-mockup--laptop" aria-label="Laptop frame">
+          <img src="macbook.png" alt="" class="device-mockup-img" draggable="false" />
+          <main class="device-screen-overlay device-screen device-screen--kanban" role="main" aria-label="Broken kanban board">
+              <div class="zone" id="z13title" data-correct="p13title" role="button" aria-label="Drop zone: project title" tabindex="0"></div>
+              <div class="zone" id="z13todo" data-correct="p13todo" role="button" aria-label="Drop zone: to do column" tabindex="0"></div>
+              <div class="zone" id="z13doing" data-correct="p13doing" role="button" aria-label="Drop zone: in progress column" tabindex="0"></div>
+              <div class="zone" id="z13done" data-correct="p13done" role="button" aria-label="Drop zone: done column" tabindex="0"></div>
+              <div class="zone" id="z13add" data-correct="p13add" role="button" aria-label="Drop zone: add task" tabindex="0"></div>
+              <div class="zone decoy" id="z13decoy" data-correct="none" role="button" aria-label="Decoy zone" tabindex="0"></div>
+            </main>
+        </figure>
+      </div>
+
+      <!-- LEVEL 14: Laptop — E-commerce -->
+      <div id="lv14wrap" class="devWrap hide" data-device="laptop" data-level="14" data-level-name="E-commerce Grid">
+        <figure class="device-mockup device-mockup--laptop" aria-label="Laptop frame">
+          <img src="macbook.png" alt="" class="device-mockup-img" draggable="false" />
+          <main class="device-screen-overlay device-screen device-screen--ecommerce" role="main" aria-label="Broken e-commerce grid">
+              <div class="zone" id="z14nav" data-correct="p14nav" role="button" aria-label="Drop zone: store navigation" tabindex="0"></div>
+              <div class="zone" id="z14filters" data-correct="p14filters" role="button" aria-label="Drop zone: filter sidebar" tabindex="0"></div>
+              <div class="zone" id="z14grid" data-correct="p14grid" role="button" aria-label="Drop zone: product grid" tabindex="0"></div>
+              <div class="zone" id="z14cart" data-correct="p14cart" role="button" aria-label="Drop zone: cart icon" tabindex="0"></div>
+              <div class="zone decoy" id="z14decoy" data-correct="none" role="button" aria-label="Decoy zone" tabindex="0"></div>
+            </main>
+        </figure>
+      </div>
+
+      <!-- LEVEL 15: Laptop — Video Editor -->
+      <div id="lv15wrap" class="devWrap hide" data-device="laptop" data-level="15" data-level-name="Video Editor">
+        <figure class="device-mockup device-mockup--laptop" aria-label="Laptop frame">
+          <img src="macbook.png" alt="" class="device-mockup-img" draggable="false" />
+          <main class="device-screen-overlay device-screen device-screen--video" role="main" aria-label="Broken video editor">
+              <div class="zone" id="z15preview" data-correct="p15preview" role="button" aria-label="Drop zone: preview monitor" tabindex="0"></div>
+              <div class="zone" id="z15toolbar" data-correct="p15toolbar" role="button" aria-label="Drop zone: edit toolbar" tabindex="0"></div>
+              <div class="zone" id="z15timeline" data-correct="p15timeline" role="button" aria-label="Drop zone: timeline" tabindex="0"></div>
+              <div class="zone" id="z15layers" data-correct="p15layers" role="button" aria-label="Drop zone: layers panel" tabindex="0"></div>
+              <div class="zone" id="z15export" data-correct="p15export" role="button" aria-label="Drop zone: export button" tabindex="0"></div>
+              <div class="zone decoy" id="z15decoy" data-correct="none" role="button" aria-label="Decoy zone" tabindex="0"></div>
+            </main>
+        </figure>
+      </div>
+
+    </section>
+
+    <aside id="tray" aria-label="Component tray">
+      <header class="tray-header">
+        <h2 class="tray-title">Elements</h2>
+        <p class="tray-sub">Drag to device, then Submit</p>
+      </header>
+      <div id="trayItems" role="list" aria-label="Draggable UI components"></div>
+      <div class="tray-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="trayProgress">
+        <div class="tp-label"><span id="tpPlaced">0</span> / <span id="tpTotal">0</span></div>
+        <div class="tp-bar"><div id="tpFill"></div></div>
+      </div>
+    </aside>
+
+  </main>
+
+  <footer id="controls" role="toolbar" aria-label="Game controls">
+    <button type="button" class="btn-sec" id="btnHint" aria-label="Hint, costs 15 points">Hint <span class="cost-badge">-15</span></button>
+    <button type="button" class="btn-sec" id="btnReset" aria-label="Reset level">Reset</button>
+    <button type="button" class="btn-primary" id="btnSubmit" aria-label="Submit level for grading">Submit</button>
+    <button type="button" class="btn-warn hide" id="btnForceSolve" aria-label="View solution and proceed">View Solution</button>
+    <button type="button" class="btn-success hide" id="btnNext" aria-label="Go to next level">Next <span class="btn-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
+  </footer>
+
+</div>
+
+<!-- SCREEN D — FINAL -->
+<div id="finalScreen" class="screen" role="region" aria-label="Game complete">
+  <div class="final-blobs" aria-hidden="true">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+  </div>
+  <div id="confettiContainer" aria-hidden="true"></div>
+  <main class="final-card">
+    <div class="f-trophy" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="64" height="64"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 01-10 0V4z"/><path d="M5 4H3v1a4 4 0 004 4M19 4h2v1a4 4 0 01-4 4"/></svg>
+    </div>
+    <h2>Design Rescued</h2>
+    <p class="f-sub" id="fSub">15 interfaces fixed</p>
+    <div class="f-grade-row">
+      <div class="f-grade-block">
+        <div id="fGrade" class="f-grade" aria-label="Letter grade">A+</div>
+        <div class="f-grade-label">Grade</div>
+      </div>
+      <div class="f-divider" aria-hidden="true"></div>
+      <div class="f-score-block">
+        <div class="f-total-n" id="fScoreNum" aria-label="Total score">0</div>
+        <div class="f-grade-label">Points</div>
+      </div>
+    </div>
+    <div class="f-breakdown" id="fBreakdown" aria-label="Score breakdown by level"></div>
+    <button type="button" class="btn-primary" id="btnReplay" aria-label="Play again">Play Again</button>
+  </main>
+</div>
+
+<div id="comboPop" class="combo-pop hide" role="status" aria-live="assertive"></div>
+
+<script src="script.js?v=4" defer></script>
+</body>
+</html>
