@@ -26,7 +26,7 @@
   "use strict";
 
   /* ====== CONFIG — set this to your real code before publishing ====== */
-  var GAME_ID = "GM-PENDING";
+  var GAME_ID = "GM-F45FD5B40DFA";
   /* =================================================================== */
 
   var STORAGE_KEY = "gpaf_logs_buffer";
